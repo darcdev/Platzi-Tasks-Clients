@@ -48,7 +48,11 @@ const Login = () => {
             />
           </div>
           <div className="campo-form">
-            <input type="submit" className="btn btn-primario btn-block" />
+            <input
+              type="submit"
+              className="btn btn-primario btn-block"
+              value="Iniciar Sesión"
+            />
           </div>
         </form>
 
