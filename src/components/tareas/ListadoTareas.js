@@ -26,11 +26,13 @@ const ListadoTareas = () => {
             <p>No hay tareas</p>
           </li>
         ) : (
-          tareasProyecto.map((tarea) => <Tarea tarea={tarea} />)
+          tareasProyecto.map((tarea) => (
+            <Tarea tarea={tarea} key={tarea.nombre} />
+          ))
         )}
       </ul>
       <button type="button" className="btn btn-eliminar">
-        Eliminar Proyecto &times
+        Eliminar Proyecto &amp;times
       </button>
     </>
   );
