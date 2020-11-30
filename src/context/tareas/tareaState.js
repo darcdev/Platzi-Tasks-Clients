@@ -6,6 +6,8 @@ import {
   AGREGAR_TAREA,
   VALIDAR_TAREA,
   ELIMINAR_TAREA,
+  ESTADO_TAREA,
+  TAREA_ACTUAL,
 } from "../../types";
 
 const TareaState = ({ children }) => {
@@ -68,6 +70,7 @@ const TareaState = ({ children }) => {
     ],
     tareasProyecto: null,
     errorTarea: false,
+    tareaSeleccionada: null,
   };
 
   // crear dispatch y state
@@ -99,21 +102,45 @@ const TareaState = ({ children }) => {
     });
   };
 
+  // eliminar la tarea seleccionada
+
   const eliminarTarea = (id) => {
     dispatch({
       type: ELIMINAR_TAREA,
       payload: id,
     });
   };
+
+  // cambiar estado tarea
+
+  const cambiarEstadoTarea = (tarea) => {
+    dispatch({
+      type: ESTADO_TAREA,
+      payload: tarea,
+    });
+  };
+
+  // Extrae tarea para edicion
+
+  const guardarTareaActual = (tarea) => {
+    dispatch({
+      type: TAREA_ACTUAL,
+      payload: tarea,
+    });
+  };
   let value = {
     tareas: state.tareas,
     tareasProyecto: state.tareasProyecto,
+    tareaSeleccionada: state.tareaSeleccionada,
     errorTarea: state.errorTarea,
     obtenerTareas,
     agregarTarea,
     validarTarea,
     eliminarTarea,
+    cambiarEstadoTarea,
+    guardarTareaActual,
   };
+
   return (
     <TareaContext.Provider value={value}>{children}</TareaContext.Provider>
   );
