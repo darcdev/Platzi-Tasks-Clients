@@ -1,7 +1,12 @@
 import React, { useReducer } from "react";
 import TareaContext from "./tareaContext";
 import TareaReducer from "./tareaReducer";
-import { TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_TAREA } from "../../types";
+import {
+  TAREAS_PROYECTO,
+  AGREGAR_TAREA,
+  VALIDAR_TAREA,
+  ELIMINAR_TAREA,
+} from "../../types";
 
 const TareaState = ({ children }) => {
   const initialState = {
@@ -10,55 +15,55 @@ const TareaState = ({ children }) => {
         nombre: "Elegir Plataforma",
         estado: true,
         proyectoId: 1,
-        tareaId: 1,
+        id: 1,
       },
       {
         nombre: "Elegir Colores",
         estado: false,
         proyectoId: 2,
-        tareaId: 2,
+        id: 2,
       },
       {
         nombre: "Elegir Hosting",
         estado: true,
         proyectoId: 3,
-        tareaId: 3,
+        id: 3,
       },
       {
         nombre: "Elegir Plataforma",
         estado: true,
         proyectoId: 1,
-        tareaId: 4,
+        id: 4,
       },
       {
         nombre: "Elegir Colores",
         estado: false,
         proyectoId: 2,
-        tareaId: 5,
+        id: 5,
       },
       {
         nombre: "Elegir Hosting",
         estado: true,
         proyectoId: 3,
-        tareaId: 6,
+        id: 6,
       },
       {
         nombre: "Elegir Plataforma",
         estado: true,
         proyectoId: 1,
-        tareaId: 7,
+        id: 7,
       },
       {
         nombre: "Elegir Colores",
         estado: false,
         proyectoId: 2,
-        tareaId: 8,
+        id: 8,
       },
       {
         nombre: "Elegir Hosting",
         estado: true,
         proyectoId: 3,
-        tareaId: 9,
+        id: 9,
       },
     ],
     tareasProyecto: null,
@@ -93,6 +98,13 @@ const TareaState = ({ children }) => {
       type: VALIDAR_TAREA,
     });
   };
+
+  const eliminarTarea = (id) => {
+    dispatch({
+      type: ELIMINAR_TAREA,
+      payload: id,
+    });
+  };
   let value = {
     tareas: state.tareas,
     tareasProyecto: state.tareasProyecto,
@@ -100,6 +112,7 @@ const TareaState = ({ children }) => {
     obtenerTareas,
     agregarTarea,
     validarTarea,
+    eliminarTarea,
   };
   return (
     <TareaContext.Provider value={value}>{children}</TareaContext.Provider>
