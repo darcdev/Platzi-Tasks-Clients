@@ -15,6 +15,7 @@ const ProyectoState = ({ children }) => {
   const proyectos = [
     { id: 1, nombre: "Tienda virtual" },
     { id: 2, nombre: "Intranet" },
+    { id: 3, nombre: "Mern" },
   ];
 
   const initialState = {
