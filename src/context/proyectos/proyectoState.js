@@ -7,6 +7,8 @@ import {
   OBTENER_PROYECTOS,
   AGREGAR_PROYECTO,
   VALIDAR_FORMULARIO,
+  PROYECTO_ACTUAL,
+  ELIMINAR_PROYECTO,
 } from "../../types";
 
 const ProyectoState = ({ children }) => {
@@ -19,6 +21,7 @@ const ProyectoState = ({ children }) => {
     proyectos: [],
     formulario: false,
     errorFormulario: false,
+    proyecto: null,
   };
   //dispatch para ejecutar las acciones
 
@@ -50,15 +53,34 @@ const ProyectoState = ({ children }) => {
       type: VALIDAR_FORMULARIO,
     });
   };
+  //proyecto actual
+
+  const proyectoActual = (proyectoId) => {
+    dispatch({
+      type: PROYECTO_ACTUAL,
+      payload: proyectoId,
+    });
+  };
+
+  const eliminarProyecto = (proyectoId) => {
+    dispatch({
+      type: ELIMINAR_PROYECTO,
+      payload: proyectoId,
+    });
+  };
+
   // valores provider
   let value = {
     proyectos: state.proyectos,
     formulario: state.formulario,
     errorFormulario: state.errorFormulario,
+    proyecto: state.proyecto,
     mostrarFormulario,
     obtenerProyectos,
     agregarProyecto,
     mostrarError,
+    proyectoActual,
+    eliminarProyecto,
   };
   // serie de funciones para crud
   return (
