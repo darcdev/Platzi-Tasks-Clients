@@ -1,11 +1,15 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AlertaContext from "../../context/alertas/alertaContext";
+import AuthContext from "../../context/autenticacion/authContext";
 
 const Register = () => {
   // extraer valores context
   const alertaContext = useContext(AlertaContext);
   const { alerta, mostrarAlerta } = alertaContext;
+
+  const authContext = useContext(AuthContext);
+  const { registrarUsuario } = authContext;
   //state para iniciar sesion
   const [usuario, guardarUsuario] = useState({
     nombre: "",
@@ -34,9 +38,8 @@ const Register = () => {
       mostrarAlerta("Todos los campos son obligatorios", "alerta-error");
       return;
     }
-
     // password minimo de 6 caracteres
-    if (password < 6) {
+    if (password.length < 6) {
       mostrarAlerta(
         "El password debe ser de al menos 6 caracteres",
         "alerta-error"
@@ -48,6 +51,7 @@ const Register = () => {
       mostrarAlerta("Los passwords no son iguales", "alerta-error");
     }
     // pasarlo al action
+    registrarUsuario({ nombre, email, password });
   };
   return (
     <div className="form-usuario">
