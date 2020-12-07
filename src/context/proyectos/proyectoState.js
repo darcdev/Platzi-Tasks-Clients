@@ -1,7 +1,8 @@
 import React, { useReducer } from "react";
 import proyectoContext from "./proyectoContext";
 import proyectoReducer from "./proyectoReducer";
-import { v4 as uuid } from "uuid";
+import clienteAxios from "../../config/axios";
+
 import {
   FORMULARIO_PROYECTO,
   OBTENER_PROYECTOS,
@@ -10,14 +11,9 @@ import {
   PROYECTO_ACTUAL,
   ELIMINAR_PROYECTO,
 } from "../../types";
+import tokenAuth from "../../config/tokenAuth";
 
 const ProyectoState = ({ children }) => {
-  const proyectos = [
-    { id: 1, nombre: "Tienda virtual" },
-    { id: 2, nombre: "Intranet" },
-    { id: 3, nombre: "Mern" },
-  ];
-
   const initialState = {
     proyectos: [],
     formulario: false,
@@ -25,7 +21,6 @@ const ProyectoState = ({ children }) => {
     proyecto: null,
   };
   //dispatch para ejecutar las acciones
-
   const [state, dispatch] = useReducer(proyectoReducer, initialState);
 
   const mostrarFormulario = () => {
@@ -34,19 +29,33 @@ const ProyectoState = ({ children }) => {
     });
   };
 
-  const obtenerProyectos = () => {
-    dispatch({
-      type: OBTENER_PROYECTOS,
-      payload: proyectos,
-    });
+  const obtenerProyectos = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      tokenAuth(token);
+    }
+    try {
+      const resultado = await clienteAxios.get("/api/proyectos");
+      dispatch({
+        type: OBTENER_PROYECTOS,
+        payload: resultado.data.proyectos,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const agregarProyecto = (proyecto) => {
-    proyecto.id = uuid();
-    dispatch({
-      type: AGREGAR_PROYECTO,
-      payload: proyecto,
-    });
+  const agregarProyecto = async (proyecto) => {
+    try {
+      const resultado = await clienteAxios.post("/api/proyectos", proyecto);
+      console.log(resultado);
+      dispatch({
+        type: AGREGAR_PROYECTO,
+        payload: resultado.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const mostrarError = () => {
