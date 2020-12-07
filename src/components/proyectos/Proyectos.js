@@ -7,13 +7,6 @@ import AuthContext from "../../context/autenticacion/authContext";
 
 const Proyectos = () => {
   // Extraer informacion autenticacion
-
-  const authContext = useContext(AuthContext);
-  const { usuarioAutenticado } = authContext;
-
-  useEffect(() => {
-    usuarioAutenticado();
-  }, []);
   return (
     <div className="contenedor-app">
       <Sidebar />

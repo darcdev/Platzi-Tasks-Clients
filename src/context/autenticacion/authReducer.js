@@ -16,7 +16,9 @@ const Authreducer = (state, action) => {
         ...state,
         autenticado: true,
         mensaje: null,
+        cargando: false,
       };
+    case CERRAR_SESION:
     case LOGIN_ERROR:
     case REGISTRO_ERROR:
       localStorage.removeItem("token");
@@ -24,16 +26,19 @@ const Authreducer = (state, action) => {
         ...state,
         token: null,
         mensaje: action.payload,
+        usuario: null,
+        autenticado: null,
+        cargando: false,
       };
     case OBTENER_USUARIO:
       return {
         ...state,
         usuario: action.payload,
+        autenticado: true,
+        cargando: false,
       };
-    case CERRAR_SESION:
     default:
       return state;
   }
 };
-
 export default Authreducer;

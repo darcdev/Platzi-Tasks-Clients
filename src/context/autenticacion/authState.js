@@ -18,6 +18,7 @@ const AuthState = ({ children }) => {
     autenticado: null,
     usuario: null,
     mensaje: null,
+    cargando: true,
   };
   const [state, dispatch] = useReducer(Authreducer, initialState);
 
@@ -83,15 +84,25 @@ const AuthState = ({ children }) => {
       });
     }
   };
+  //cierra sesion usuario
+  const cerrarSesion = () => {
+    dispatch({
+      type: CERRAR_SESION,
+    });
+  };
+
   let value = {
     token: state.token,
     autenticado: state.autenticado,
     usuario: state.usuario,
     mensaje: state.mensaje,
+    cargando: state.cargando,
     registrarUsuario,
     usuarioAutenticado,
     iniciarSesion,
+    cerrarSesion,
   };
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 export default AuthState;
