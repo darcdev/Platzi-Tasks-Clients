@@ -1,15 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AlertaContext from "../../context/alertas/alertaContext";
 import AuthContext from "../../context/autenticacion/authContext";
 
-const Register = () => {
+const Register = ({ history }) => {
   // extraer valores context
   const alertaContext = useContext(AlertaContext);
   const { alerta, mostrarAlerta } = alertaContext;
 
   const authContext = useContext(AuthContext);
-  const { registrarUsuario } = authContext;
+  const { mensaje, autenticado, registrarUsuario } = authContext;
+
+  //En caso de que el usuario se haya autenticado o registrado o sea un registro
+  useEffect(() => {
+    if (autenticado) {
+      history.push("/proyectos");
+    }
+    if (mensaje) {
+      mostrarAlerta(mensaje.msg, mensaje.categoria);
+    }
+  }, [mensaje, autenticado, history]);
   //state para iniciar sesion
   const [usuario, guardarUsuario] = useState({
     nombre: "",
@@ -49,6 +59,7 @@ const Register = () => {
     // los 2 passwords son iguales
     if (password !== confpassword) {
       mostrarAlerta("Los passwords no son iguales", "alerta-error");
+      return;
     }
     // pasarlo al action
     registrarUsuario({ nombre, email, password });

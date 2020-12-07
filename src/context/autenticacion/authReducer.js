@@ -9,6 +9,7 @@ import {
 
 const Authreducer = (state, action) => {
   switch (action.type) {
+    case LOGIN_EXITOSO:
     case REGISTRO_EXITOSO:
       localStorage.setItem("token", action.payload.token);
       return {
@@ -16,15 +17,19 @@ const Authreducer = (state, action) => {
         autenticado: true,
         mensaje: null,
       };
+    case LOGIN_ERROR:
     case REGISTRO_ERROR:
+      localStorage.removeItem("token");
       return {
         ...state,
         token: null,
         mensaje: action.payload,
       };
-    case LOGIN_EXITOSO:
-    case LOGIN_ERROR:
     case OBTENER_USUARIO:
+      return {
+        ...state,
+        usuario: action.payload,
+      };
     case CERRAR_SESION:
     default:
       return state;
