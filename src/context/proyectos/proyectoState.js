@@ -10,6 +10,7 @@ import {
   VALIDAR_FORMULARIO,
   PROYECTO_ACTUAL,
   ELIMINAR_PROYECTO,
+  PROYECTO_ERROR,
 } from "../../types";
 import tokenAuth from "../../config/tokenAuth";
 
@@ -19,6 +20,7 @@ const ProyectoState = ({ children }) => {
     formulario: false,
     errorFormulario: false,
     proyecto: null,
+    mensaje: null,
   };
   //dispatch para ejecutar las acciones
   const [state, dispatch] = useReducer(proyectoReducer, initialState);
@@ -80,7 +82,14 @@ const ProyectoState = ({ children }) => {
         payload: proyectoId,
       });
     } catch (error) {
-      console.log(error);
+      const alerta = {
+        msg: "Hubo un error",
+        categoria: "alerta-error",
+      };
+      dispatch({
+        type: PROYECTO_ERROR,
+        payload: alerta,
+      });
     }
   };
 
@@ -90,6 +99,7 @@ const ProyectoState = ({ children }) => {
     formulario: state.formulario,
     errorFormulario: state.errorFormulario,
     proyecto: state.proyecto,
+    mensaje: state.mensaje,
     mostrarFormulario,
     obtenerProyectos,
     agregarProyecto,

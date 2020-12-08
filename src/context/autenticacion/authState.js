@@ -49,7 +49,6 @@ const AuthState = ({ children }) => {
       tokenAuth(token);
     }
     try {
-      console.log(clienteAxios.defaults.headers);
       const respuesta = await clienteAxios.get("/api/auth");
       dispatch({
         type: OBTENER_USUARIO,

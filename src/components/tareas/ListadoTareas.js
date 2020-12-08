@@ -26,13 +26,11 @@ const ListadoTareas = () => {
             <p>No hay tareas</p>
           </li>
         ) : (
-          <TransitionGroup>
+          <>
             {tareasProyecto.map((tarea) => (
-              <CSSTransition key={tarea.id} timeout={200} classNames="tarea">
-                <Tarea tarea={tarea} />
-              </CSSTransition>
+              <Tarea key={tarea._id} tarea={tarea} />
             ))}
-          </TransitionGroup>
+          </>
         )}
       </ul>
       <button

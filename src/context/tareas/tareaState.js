@@ -1,5 +1,4 @@
 import React, { useReducer } from "react";
-import { v4 as uuid } from "uuid";
 import TareaContext from "./tareaContext";
 import TareaReducer from "./tareaReducer";
 import {
@@ -12,70 +11,14 @@ import {
   ACTUALIZAR_TAREA,
   LIMPIAR_TAREA,
 } from "../../types";
+import clienteAxios from "../../config/axios";
 
 const TareaState = ({ children }) => {
   const initialState = {
-    tareas: [
-      {
-        nombre: "Elegir Plataforma",
-        estado: true,
-        proyectoId: 1,
-        id: 1,
-      },
-      {
-        nombre: "Elegir Colores",
-        estado: false,
-        proyectoId: 2,
-        id: 2,
-      },
-      {
-        nombre: "Elegir Hosting",
-        estado: true,
-        proyectoId: 3,
-        id: 3,
-      },
-      {
-        nombre: "Elegir Plataforma",
-        estado: true,
-        proyectoId: 1,
-        id: 4,
-      },
-      {
-        nombre: "Elegir Colores",
-        estado: false,
-        proyectoId: 2,
-        id: 5,
-      },
-      {
-        nombre: "Elegir Hosting",
-        estado: true,
-        proyectoId: 3,
-        id: 6,
-      },
-      {
-        nombre: "Elegir Plataforma",
-        estado: true,
-        proyectoId: 1,
-        id: 7,
-      },
-      {
-        nombre: "Elegir Colores",
-        estado: false,
-        proyectoId: 2,
-        id: 8,
-      },
-      {
-        nombre: "Elegir Hosting",
-        estado: true,
-        proyectoId: 3,
-        id: 9,
-      },
-    ],
-    tareasProyecto: null,
+    tareasProyecto: [],
     errorTarea: false,
     tareaSeleccionada: null,
   };
-
   // crear dispatch y state
   const [state, dispatch] = useReducer(TareaReducer, initialState);
 
@@ -83,15 +26,26 @@ const TareaState = ({ children }) => {
 
   //Obtener las tareas de un proyecto
 
-  const obtenerTareas = (proyectoId) => {
-    dispatch({
-      type: TAREAS_PROYECTO,
-      payload: proyectoId,
-    });
+  const obtenerTareas = async (proyecto) => {
+    try {
+      const resultado = await clienteAxios.get("/api/tareas", {
+        params: { proyecto },
+      });
+      dispatch({
+        type: TAREAS_PROYECTO,
+        payload: resultado.data.tareas,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const agregarTarea = (tarea) => {
-    tarea.id = uuid();
+  const agregarTarea = async (tarea) => {
+    try {
+      const resultado = await clienteAxios.post("/api/tareas", tarea);
+    } catch (error) {
+      console.log(error);
+    }
     dispatch({
       type: AGREGAR_TAREA,
       payload: tarea,
