@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Tarea from "./Tarea";
 import proyectoContext from "../../context/proyectos/proyectoContext";
 import tareaContext from "../../context/tareas/tareaContext";

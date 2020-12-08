@@ -56,9 +56,7 @@ const TareaState = ({ children }) => {
       type: VALIDAR_TAREA,
     });
   };
-
   // eliminar la tarea seleccionada
-
   const eliminarTarea = async (id, proyecto) => {
     try {
       await clienteAxios.delete(`/api/tareas/${id}`, { params: { proyecto } });
@@ -70,7 +68,6 @@ const TareaState = ({ children }) => {
       console.log(error);
     }
   };
-
   // actualizar tarea
   const actualizarTarea = async (tarea) => {
     try {
@@ -78,7 +75,6 @@ const TareaState = ({ children }) => {
         `/api/tareas/${tarea._id}`,
         tarea
       );
-      console.log(resultado);
       dispatch({
         type: ACTUALIZAR_TAREA,
         payload: resultado.data.tarea,
