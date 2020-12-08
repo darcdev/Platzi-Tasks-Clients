@@ -12,7 +12,6 @@ const FormTarea = () => {
     tareaSeleccionada,
     errorTarea,
     agregarTarea,
-    obtenerTareas,
     validarTarea,
     actualizarTarea,
     limpiarTarea,
@@ -68,8 +67,7 @@ const FormTarea = () => {
       actualizarTarea(tarea);
       limpiarTarea();
     }
-    //obtener y filtrar tareas proyecto actual
-    obtenerTareas(proyectoActual._id);
+
     //reiniciar form
     guardarTarea({
       nombre: "",

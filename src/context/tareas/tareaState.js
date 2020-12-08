@@ -6,7 +6,6 @@ import {
   AGREGAR_TAREA,
   VALIDAR_TAREA,
   ELIMINAR_TAREA,
-  ESTADO_TAREA,
   TAREA_ACTUAL,
   ACTUALIZAR_TAREA,
   LIMPIAR_TAREA,
@@ -43,17 +42,15 @@ const TareaState = ({ children }) => {
   const agregarTarea = async (tarea) => {
     try {
       const resultado = await clienteAxios.post("/api/tareas", tarea);
+      dispatch({
+        type: AGREGAR_TAREA,
+        payload: resultado.data.tarea,
+      });
     } catch (error) {
       console.log(error);
     }
-    dispatch({
-      type: AGREGAR_TAREA,
-      payload: tarea,
-    });
   };
-
   // valida y muestra un error en caso que sea necesario
-
   const validarTarea = () => {
     dispatch({
       type: VALIDAR_TAREA,
@@ -62,22 +59,34 @@ const TareaState = ({ children }) => {
 
   // eliminar la tarea seleccionada
 
-  const eliminarTarea = (id) => {
-    dispatch({
-      type: ELIMINAR_TAREA,
-      payload: id,
-    });
+  const eliminarTarea = async (id, proyecto) => {
+    try {
+      await clienteAxios.delete(`/api/tareas/${id}`, { params: { proyecto } });
+      dispatch({
+        type: ELIMINAR_TAREA,
+        payload: id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // cambiar estado tarea
-
-  const cambiarEstadoTarea = (tarea) => {
-    dispatch({
-      type: ESTADO_TAREA,
-      payload: tarea,
-    });
+  // actualizar tarea
+  const actualizarTarea = async (tarea) => {
+    try {
+      const resultado = await clienteAxios.put(
+        `/api/tareas/${tarea._id}`,
+        tarea
+      );
+      console.log(resultado);
+      dispatch({
+        type: ACTUALIZAR_TAREA,
+        payload: resultado.data.tarea,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   // Extrae tarea para edicion
 
   const guardarTareaActual = (tarea) => {
@@ -87,13 +96,6 @@ const TareaState = ({ children }) => {
     });
   };
 
-  // actualizar tarea
-  const actualizarTarea = (tarea) => {
-    dispatch({
-      type: ACTUALIZAR_TAREA,
-      payload: tarea,
-    });
-  };
   //elimina tarea seleccionada
 
   const limpiarTarea = () => {
@@ -110,7 +112,6 @@ const TareaState = ({ children }) => {
     agregarTarea,
     validarTarea,
     eliminarTarea,
-    cambiarEstadoTarea,
     guardarTareaActual,
     actualizarTarea,
     limpiarTarea,

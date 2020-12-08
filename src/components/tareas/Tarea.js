@@ -10,23 +10,24 @@ const Tarea = ({ tarea }) => {
   const {
     eliminarTarea,
     obtenerTareas,
-    cambiarEstadoTarea,
+    actualizarTarea,
     guardarTareaActual,
   } = tareasContext;
 
   const [proyectoActual] = proyecto;
 
   const tareaEliminar = (id) => {
-    eliminarTarea(id);
-    obtenerTareas(proyectoActual.id);
+    eliminarTarea(id, proyectoActual._id);
+    obtenerTareas(proyectoActual._id);
   };
   const cambiarEstado = (tarea) => {
+    console.table(tarea);
     if (tarea.estado) {
       tarea.estado = false;
     } else {
       tarea.estado = true;
     }
-    cambiarEstadoTarea(tarea);
+    actualizarTarea(tarea);
   };
 
   const seleccionarTarea = (tarea) => {
@@ -63,7 +64,7 @@ const Tarea = ({ tarea }) => {
         </button>
         <button
           className="btn btn-secundario"
-          onClick={() => tareaEliminar(tarea.id)}
+          onClick={() => tareaEliminar(tarea._id)}
         >
           Eliminar
         </button>

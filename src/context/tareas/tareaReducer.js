@@ -2,7 +2,6 @@ import {
   ACTUALIZAR_TAREA,
   AGREGAR_TAREA,
   ELIMINAR_TAREA,
-  ESTADO_TAREA,
   LIMPIAR_TAREA,
   TAREAS_PROYECTO,
   TAREA_ACTUAL,
@@ -31,16 +30,15 @@ const TareaReducer = (state, action) => {
       return {
         ...state,
         tareasProyecto: state.tareasProyecto.filter(
-          (tarea) => tarea.id !== action.payload
+          (tarea) => tarea._id !== action.payload
         ),
       };
     case ACTUALIZAR_TAREA:
-    case ESTADO_TAREA:
       return {
         ...state,
-        tareasProyecto: state.tareasProyecto.map((tarea) =>
-          tarea.id === action.payload.id ? action.payload : tarea
-        ),
+        tareasProyecto: state.tareasProyecto.map((tarea) => {
+          return tarea._id === action.payload._id ? action.payload : tarea;
+        }),
       };
     case TAREA_ACTUAL:
       return {
