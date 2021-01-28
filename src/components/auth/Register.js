@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AlertaContext from "../../context/alertas/alertaContext";
 import AuthContext from "../../context/autenticacion/authContext";
+import Alert from "../layout/Alert";
 
 const Register = ({ history }) => {
   // extraer valores context
@@ -66,16 +67,15 @@ const Register = ({ history }) => {
   };
   return (
     <div className="form-usuario">
-      {alerta ? (
-        <div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div>
-      ) : null}
+      <Alert alert={alerta} />
       <div className="contenedor-form sombra-dark">
-        <h1>Obtener una Cuenta</h1>
+        <h1 data-cy="titulo">Obtener una Cuenta</h1>
 
-        <form onSubmit={onSubmit}>
+        <form data-cy="nueva-cuenta" onSubmit={onSubmit}>
           <div className="campo-form">
             <label htmlFor="nombre">Nombre</label>
             <input
+              data-cy="nombre-input"
               type="text"
               id="nombre"
               name="nombre"
@@ -87,6 +87,7 @@ const Register = ({ history }) => {
           <div className="campo-form">
             <label htmlFor="email">Email</label>
             <input
+              data-cy="email-input"
               type="email"
               id="email"
               name="email"
@@ -98,6 +99,7 @@ const Register = ({ history }) => {
           <div className="campo-form">
             <label htmlFor="password">Password</label>
             <input
+              data-cy="password-input"
               type="password"
               id="password"
               name="password"
@@ -109,6 +111,7 @@ const Register = ({ history }) => {
           <div className="campo-form">
             <label htmlFor="password">Confirmar Password</label>
             <input
+              data-cy="repeat-password-input"
               type="password"
               id="confpassword"
               name="confpassword"
@@ -122,10 +125,11 @@ const Register = ({ history }) => {
               type="submit"
               className="btn btn-primario btn-block"
               value="Registrarme"
+              data-cy="submit-nueva-cuenta"
             />
           </div>
         </form>
-        <Link to="/" className="enlace-cuenta">
+        <Link data-cy="enlace-login" to="/" className="enlace-cuenta">
           Iniciar Sesión
         </Link>
       </div>

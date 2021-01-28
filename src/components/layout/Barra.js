@@ -16,6 +16,7 @@ const Barra = () => {
         <button
           type="button"
           className="btn btn-blank cerrar-sesion"
+          data-cy="cerrar-sesion"
           onClick={cerrarSesion}
         >
           Cerrar Sesion
