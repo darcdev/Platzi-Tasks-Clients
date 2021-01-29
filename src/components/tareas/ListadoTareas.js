@@ -17,9 +17,9 @@ const ListadoTareas = () => {
 
   return (
     <>
-      <h2>Proyecto : {proyectoActual.nombre}</h2>
+      <h2 data-cy="projecto-nombre">Proyecto : {proyectoActual.nombre}</h2>
 
-      <ul className="listado-tareas">
+      <ul data-cy="listado-tareas" className="listado-tareas">
         {tareasProyecto.length === 0 ? (
           <li className="tarea">
             <p>No hay tareas</p>

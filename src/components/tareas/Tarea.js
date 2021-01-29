@@ -28,10 +28,11 @@ const Tarea = ({ tarea }) => {
     guardarTareaActual(tarea);
   };
   return (
-    <li className="tarea sombra">
-      <p>{tarea.nombre}</p>
+    <li data-cy="tarea" className="tarea sombra">
+      <p data-cy="nombre-tarea">{tarea.nombre}</p>
       <div className="estado">
         <button
+          data-cy="estado-tarea"
           type="button"
           className={tarea.estado ? "completo" : "incompleto"}
           onClick={() => cambiarEstado(tarea)}
@@ -41,12 +42,14 @@ const Tarea = ({ tarea }) => {
       </div>
       <div className="acciones">
         <button
+          data-cy="btn-editar"
           className="btn btn-primario"
           onClick={() => seleccionarTarea(tarea)}
         >
           Editar
         </button>
         <button
+          data-cy="btn-eliminar"
           className="btn btn-secundario"
           onClick={() => tareaEliminar(tarea._id)}
         >

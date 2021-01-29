@@ -71,13 +71,10 @@ const TareaState = ({ children }) => {
   // actualizar tarea
   const actualizarTarea = async (tarea) => {
     try {
-      const resultado = await clienteAxios.put(
-        `/api/tareas/${tarea._id}`,
-        tarea
-      );
+      await clienteAxios.put(`/api/tareas/${tarea._id}`, tarea);
       dispatch({
         type: ACTUALIZAR_TAREA,
-        payload: resultado.data.tarea,
+        payload: tarea,
       });
     } catch (error) {
       console.log(error);
